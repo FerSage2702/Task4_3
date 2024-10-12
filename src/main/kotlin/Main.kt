@@ -1,8 +1,6 @@
-// Уникальное название для алфавита
 val russianAlphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
 val alphabetSize = russianAlphabet.length // Размер алфавита
 
-// Функция для создания стандартной таблицы Виженера
 fun createStandardTable(): List<String> {
     val table = mutableListOf<String>()
     for (i in 0 until alphabetSize) {
@@ -11,13 +9,11 @@ fun createStandardTable(): List<String> {
     return table
 }
 
-// Функция для генерации повторяющегося ключа
 fun generateKey(message: String, key: String): String {
     val keyRepeats = (message.length + key.length - 1) / key.length // Количество повторов ключа
     return (key.repeat(keyRepeats)).substring(0, message.length).uppercase()
 }
 
-// Функция для шифрования
 fun encrypt(message: String, key: String, table: List<String>): String {
     val encryptedMessage = StringBuilder()
     for (i in message.indices) {
@@ -36,7 +32,6 @@ fun encrypt(message: String, key: String, table: List<String>): String {
     return encryptedMessage.toString()
 }
 
-// Функция для расшифровки
 fun decrypt(encryptedMessage: String, key: String, table: List<String>): String {
     val decryptedMessage = StringBuilder()
     for (i in encryptedMessage.indices) {
@@ -66,21 +61,16 @@ fun main() {
     println("Введите ключ:")
     val key = readLine()?.uppercase() ?: ""
 
-    // Генерация ключа нужной длины
     val fullKey = generateKey(message, key)
 
-    // Создание стандартной таблицы Виженера
     val vigenereTable = createStandardTable()
 
-    // Шифрование
     val encryptedMessage = encrypt(message, fullKey, vigenereTable)
 
-    // Вывод результата
     println("\nИсходное сообщение: $message")
     println("Ключ:               $fullKey")
     println("Зашифрованное сообщение: $encryptedMessage")
 
-    // Расшифровка
     val decryptedMessage = decrypt(encryptedMessage, fullKey, vigenereTable)
     println("Расшифрованное сообщение: $decryptedMessage")
 }
