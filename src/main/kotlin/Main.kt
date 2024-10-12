@@ -1,5 +1,5 @@
 val russianAlphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-val alphabetSize = russianAlphabet.length // Размер алфавита
+val alphabetSize = russianAlphabet.length
 
 fun createStandardTable(): List<String> {
     val table = mutableListOf<String>()
@@ -10,7 +10,7 @@ fun createStandardTable(): List<String> {
 }
 
 fun generateKey(message: String, key: String): String {
-    val keyRepeats = (message.length + key.length - 1) / key.length // Количество повторов ключа
+    val keyRepeats = (message.length + key.length - 1) / key.length 
     return (key.repeat(keyRepeats)).substring(0, message.length).uppercase()
 }
 
@@ -20,13 +20,13 @@ fun encrypt(message: String, key: String, table: List<String>): String {
         val messageChar = message[i].uppercaseChar()
         val keyChar = key[i].uppercaseChar()
 
-        val row = russianAlphabet.indexOf(messageChar) // Находим строку по сообщению
-        val col = russianAlphabet.indexOf(keyChar) // Находим столбец по ключу
+        val row = russianAlphabet.indexOf(messageChar) 
+        val col = russianAlphabet.indexOf(keyChar) /
 
         if (row != -1 && col != -1) {
-            encryptedMessage.append(table[col][row]) // Пересечение строки и столбца
+            encryptedMessage.append(table[col][row])
         } else {
-            encryptedMessage.append(messageChar) // Если символ не в алфавите
+            encryptedMessage.append(messageChar)
         }
     }
     return encryptedMessage.toString()
@@ -38,12 +38,12 @@ fun decrypt(encryptedMessage: String, key: String, table: List<String>): String 
         val encryptedChar = encryptedMessage[i].uppercaseChar()
         val keyChar = key[i].uppercaseChar()
 
-        val col = russianAlphabet.indexOf(keyChar) // Находим столбец по ключу
+        val col = russianAlphabet.indexOf(keyChar)
         if (col != -1) {
             // Находим строку, в которой находится зашифрованная буква
             val row = table[col].indexOf(encryptedChar)
             if (row != -1) {
-                decryptedMessage.append(russianAlphabet[row]) // Восстанавливаем оригинальную букву по строке
+                decryptedMessage.append(russianAlphabet[row])
             } else {
                 decryptedMessage.append(encryptedChar)
             }
